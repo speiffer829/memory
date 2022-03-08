@@ -1,0 +1,14 @@
+{
+  "path":{
+    "$lib": ["src/lib"],
+    "$lib/*": ["src/lib/*"],
+    "$assets": ["src/assets"],
+    "$assets/*": ["src/assets/*"],
+  },
+  "compilerOptions": {
+    "composite": true,
+    "module": "esnext",
+    "moduleResolution": "node"
+  },
+  "include": ["vite.config.ts"]
+}
