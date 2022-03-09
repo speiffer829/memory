@@ -2,14 +2,30 @@
 
 :root{
 	--light: #f9ffff;
+	--dark: #1d1d1d;
 	--purple: #aa9efb;
 	--gray: #dadddd;
 	--green: #9efbdc;
+
+	--bg: var(--light);
+	--color: var(--dark);
+
+	@media(prefers-color-scheme: dark){
+		--color: var(--light);
+		--bg: var(--dark);
+	}
 }
 
 body{
 	font-family: 'Poppins', san-serif;
 	text-align: center;
+	background: var(--bg);
+	color: var(--color);
+
+	&.dark{
+		--color: var(--light);
+		--bg: var(--dark);
+	}
 }
 
 button{

@@ -23,13 +23,13 @@
 
 	let disableButtons: boolean = false;
 
-	let tries: number = 0;
+	let moves: number = 0;
 
 	$: isDone = grid.every((item: emojiT) => item.matched);
 	$: pairCount = grid.filter((item: emojiT) => item.matched).length / 2;
 
 	function checkChosen() {
-		tries++;
+		moves++;
 		disableButtons = true;
 
 		if (chosen[0].matchId === chosen[1].matchId) {
@@ -57,7 +57,7 @@
 	let grid: emojiT[] = createGrid();
 	function createGrid() {
 		chosen = [];
-		tries = 0;
+		moves = 0;
 		return [...emojis, ...emojis]
 			.map((item, index) => {
 				return {
@@ -75,13 +75,13 @@
 </script>
 
 {#if isDone}
-	<h1>Congrats! It took you <strong>{tries}</strong> tries!</h1>
+	<h1>Congrats! It took you <strong>{moves}</strong> moves!</h1>
 {:else}
 	<h1>Try to match the pairs!</h1>
 {/if}
 
 <div class="stat-row">
-	<p>Tries: {tries}</p>
+	<p>Moves: {moves}</p>
 	<p>Pairs Found: {pairCount}/{grid.length / 2}</p>
 </div>
 <div class="grid">
@@ -127,7 +127,7 @@
 		justify-content: center;
 		align-items: center;
 		align-content: center;
-		border: solid #333 3px;
+		border: solid var(--color) 3px;
 		aspect-ratio: 1/1;
 		transition: all 300ms;
 		overflow: hidden;
@@ -151,7 +151,7 @@
 		}
 
 		&.chosen {
-			background: var(--gray);
+			background: var(--purple);
 			span {
 				transform: scale(1);
 				opacity: 1;
@@ -172,7 +172,7 @@
 		background: var(--purple);
 		color: var(--light);
 		font-weight: 900;
-		border: solid 3px #333;
+		border: solid 3px var(--color);
 		padding: 0.75rem 2rem;
 		border-radius: 1rem;
 	}
