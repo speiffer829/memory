@@ -1,7 +1,14 @@
-<script>
+<script lang="ts">
 	import { flip } from 'svelte/animate';
 
-	const emojis = [
+	interface emojiT {
+		id?: number;
+		emoji?: string;
+		matchId?: number;
+		matched?: boolean;
+	}
+
+	const emojis: emojiT[] = [
 		{ matchId: 0, emoji: '🍆' },
 		{ matchId: 1, emoji: '🖕' },
 		{ matchId: 2, emoji: '🇺🇸' },
@@ -12,21 +19,21 @@
 		{ matchId: 7, emoji: '😶' },
 	];
 
-	let chosen = [];
+	let chosen: emojiT[] = [];
 
-	let disableButtons = false;
+	let disableButtons: boolean = false;
 
-	let tries = 0;
+	let tries: number = 0;
 
-	$: isDone = grid.every((item) => item.matched);
-	$: pairCount = grid.filter((item) => item.matched).length / 2;
+	$: isDone = grid.every((item: emojiT) => item.matched);
+	$: pairCount = grid.filter((item: emojiT) => item.matched).length / 2;
 
 	function checkChosen() {
 		tries++;
 		disableButtons = true;
 
 		if (chosen[0].matchId === chosen[1].matchId) {
-			grid = grid.map((item) => {
+			grid = grid.map((item: emojiT) => {
 				if (item.id === chosen[0].id || item.id === chosen[1].id) {
 					item.matched = true;
 				}
@@ -47,7 +54,7 @@
 		if (chosen.length === 2) checkChosen();
 	}
 
-	let grid = createGrid();
+	let grid: emojiT[] = createGrid();
 	function createGrid() {
 		chosen = [];
 		tries = 0;
