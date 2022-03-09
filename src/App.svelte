@@ -74,36 +74,47 @@
 	}
 </script>
 
-{#if isDone}
-	<h1>Congrats! It took you <strong>{moves}</strong> moves!</h1>
-{:else}
-	<h1>Try to match the pairs!</h1>
-{/if}
+<main>
+	{#if isDone}
+		<h1>Congrats! It took you <strong>{moves}</strong> moves!</h1>
+	{:else}
+		<h1>Try to match the <strong>pairs</strong>!</h1>
+	{/if}
 
-<div class="stat-row">
-	<p>Moves: {moves}</p>
-	<p>Pairs Found: {pairCount}/{grid.length / 2}</p>
-</div>
-<div class="grid">
-	{#each grid as { emoji, id, matchId, matched } (id)}
-		<button
-			class:matched
-			class:chosen={chosen.some((item) => item.id === id)}
-			on:click={() => handleClick({ id, matchId })}
-			animate:flip={{ duration: 200 }}
-			disabled={disableButtons ||
-				matched ||
-				chosen.some((item) => item.id === id)}
-		>
-			<span>{emoji}</span>
-		</button>
-	{/each}
-</div>
-<button on:click={() => (grid = createGrid())} class="reset-btn">Reset</button>
+	<div class="stat-row">
+		<p>Moves: <strong>{moves}</strong></p>
+		<p>Pairs Found: <strong>{pairCount}</strong>/{grid.length / 2}</p>
+	</div>
+	<div class="grid">
+		{#each grid as { emoji, id, matchId, matched } (id)}
+			<button
+				class:matched
+				class:chosen={chosen.some((item) => item.id === id)}
+				on:click={() => handleClick({ id, matchId })}
+				animate:flip={{ duration: 200 }}
+				disabled={disableButtons ||
+					matched ||
+					chosen.some((item) => item.id === id)}
+			>
+				<span>{emoji}</span>
+			</button>
+		{/each}
+	</div>
+	<button on:click={() => (grid = createGrid())} class="reset-btn">Reset</button
+	>
+</main>
 
 <style lang="scss">
+	main {
+		max-width: 600px;
+		margin-inline: auto;
+	}
+
+	h1 {
+		text-align: center;
+	}
 	h1 > strong {
-		color: var(--purple);
+		color: var(--accent);
 	}
 	.grid {
 		display: grid;
@@ -151,7 +162,7 @@
 		}
 
 		&.chosen {
-			background: var(--purple);
+			background: var(--accent);
 			span {
 				transform: scale(1);
 				opacity: 1;
@@ -159,7 +170,7 @@
 		}
 
 		&.matched {
-			background: var(--green);
+			background: var(--success);
 			span {
 				transform: scale(1);
 				opacity: 1;
@@ -167,10 +178,20 @@
 		}
 	}
 
+	.stat-row {
+		display: flex;
+		justify-content: space-between;
+
+		strong {
+			color: var(--accent);
+		}
+	}
+
 	.reset-btn {
+		margin-top: 1rem;
 		font-size: 1rem;
-		background: var(--purple);
-		color: var(--light);
+		background: var(--accent);
+		color: var(--bg);
 		font-weight: 900;
 		border: solid 3px var(--color);
 		padding: 0.75rem 2rem;

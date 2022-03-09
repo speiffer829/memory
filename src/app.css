@@ -4,21 +4,26 @@
 	--light: #f9ffff;
 	--dark: #1d1d1d;
 	--purple: #aa9efb;
+	--darkpurple: #6d5af1;
 	--gray: #dadddd;
 	--green: #9efbdc;
+	--darkgreen: #67eab9;
 
 	--bg: var(--light);
 	--color: var(--dark);
+	--accent: var(--darkpurple);
+	--success: var(--darkgreen);
 
 	@media(prefers-color-scheme: dark){
 		--color: var(--light);
 		--bg: var(--dark);
+		--accent: var(--purple);
+		--success: var(--green);
 	}
 }
 
 body{
 	font-family: 'Poppins', san-serif;
-	text-align: center;
 	background: var(--bg);
 	color: var(--color);
 
